@@ -1,7 +1,7 @@
 '''
 Created on 9 Sep 2015
 
-@author: tlm
+@author: Tobias Meggendorfer
 '''
 import numpy
 from pulp.solvers import LpSolver

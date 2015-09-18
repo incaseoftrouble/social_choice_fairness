@@ -1,10 +1,10 @@
 '''
 Created on 9 Sep 2015
 
-@author: tlm
+@author: Tobias Meggendorfer
 '''
 
-from vote.parser import parseVoteFromDict, toAssigmentVote
+from vote.parser import parseVoteFromDict, toAssignmentVote
 from vote.solver.sr import solveVoteESR, solveVotePSR, solveVoteSPSR
 from vote.solver.settings import SolverSettings
 from pulp.solvers import PULP_CBC_CMD
@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     vote = parseVoteFromDict(vote)
     print str(vote)
-    vote = toAssigmentVote(vote)
+    vote = toAssignmentVote(vote)
     print str(vote)
 
     settings = SolverSettings(solver=PULP_CBC_CMD(msg=False),

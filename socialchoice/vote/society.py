@@ -3,7 +3,7 @@ This package contains all basic objects related to social choice / assigment pro
 
 Created on 8 Sep 2015
 
-@author: tlm
+@author: Tobias Meggendorfer
 '''
 import collections
 import math

@@ -1,3 +1,11 @@
+'''
+This module provides some simple, shared utility functions
+
+Created on 8 Sep 2015
+
+@author: Tobias Meggendorfer
+'''
+
 from pulp.pulp import lpSum, LpProblem, LpVariable
 from pulp.constants import LpMaximize, LpStatusOptimal, LpStatusInfeasible,\
     LpStatusUnbounded, LpStatusUndefined, LpStatusNotSolved
@@ -52,6 +60,15 @@ def getUniqueNames(objects, prefix="U_"):
 
 
 def findLottery(vote, classHeights, solverSettings):
+    '''
+    Returns a Lottery satisfying all constraints specified by the classHeights parameter
+
+    @type vote: vote.society.Vote
+    @type classHeights: dict(vote.society.ChoiceClass, float)
+    @type solverSettings: vote.solver.settings.SolverSettings
+    @rtype: vote.society.Lottery
+    @raise ValueError: If the constraints are not satisfiable
+    '''
     classNames = getUniqueNames(classHeights.keys(), prefix="Class ")
     choiceNames = getUniqueNames(vote.getChoices(), prefix="Choice ")
 
@@ -64,7 +81,7 @@ def findLottery(vote, classHeights, solverSettings):
             height, classNames[choiceClass] + " height"
 
     problem.setObjective(lpSum(choiceVariables.values()))
-    problem.solve(solverSettings.getSolver())
+    checkPulpStatus(problem.solve(solverSettings.getSolver()))
 
     choiceValues = dict()
     for choice, choiceName in choiceNames.items():

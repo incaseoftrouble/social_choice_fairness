@@ -1,14 +1,14 @@
 '''
 Created on 8 Sep 2015
 
-@author: tlm
+@author: Tobias Meggendorfer
 '''
 from vote.society import Choice, ChoiceClass, Agent, Preference, Vote,\
     Assignment
 from itertools import permutations
 
 
-def toAssigmentVote(vote):
+def toAssignmentVote(vote):
     objects = set(map(lambda choice: choice.getObject(),
                       vote.getChoices()))
     agents = list(vote.getAgents())
@@ -63,13 +63,12 @@ def parseVoteFromDict(choiceDict,
     for agent, choiceClasses in saneChoiceDict.items():
         agentChoices = set()
         for choiceClass in choiceClasses:
-            intersection = agentChoices.intersection(choiceClass)
-            if intersection:
+            if not agentChoices.isdisjoint(choiceClass):
                 if not removeDuplicateChoices:
-                    raise ValueError("Duplicate choices " + str(intersection) +
-                                     " for agent " + str(agent))
-                else:
-                    agentChoices.update(choiceClass.difference_update(agentChoices))
+                    raise ValueError("Duplicate choices for agent " +
+                                     str(agent))
+            choiceClass.difference_update(agentChoices)
+            agentChoices.update(choiceClass)
 
         diff = allChoices.difference(agentChoices)
         if diff:

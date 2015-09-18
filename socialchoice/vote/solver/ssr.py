@@ -1,7 +1,7 @@
 '''
 Created on 10 Sep 2015
 
-@author: tlm
+@author: Tobias Meggendorfer
 '''
 from vote.society import ChoiceClass, Agent
 from vote.solver.settings import SolverSettings
