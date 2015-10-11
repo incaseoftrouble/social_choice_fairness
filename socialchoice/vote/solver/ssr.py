@@ -237,7 +237,6 @@ def computeLambda(state, maximumTime=1.0):
     lambdaOpt = lambdaVariable.value()
 
     freezingTowers = []
-    print state
     for currentTower, towerName in towerNames.items():
         if currentTower.isFrozen():
             continue

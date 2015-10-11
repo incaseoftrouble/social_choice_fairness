@@ -145,7 +145,7 @@ class ChoiceClass(object):
             for element in self.getChoices():
                 if element not in other:
                     return False
-                return True
+            return True
         raise ValueError("Can't handle " + repr(other))
 
 
@@ -294,8 +294,10 @@ class Lottery(object):
     '''
 
     def __init__(self, distribution, solverSettings):
-        assert solverSettings.isClose(math.fsum(distribution.values()), 1)
-        self.distribution = distribution
+        self.distribution = dict()
+        for obj, value in distribution.items():
+            self.distribution[obj] = solverSettings.checkBound(value, 0, 1)
+        assert solverSettings.isClose(math.fsum(self.distribution.values()), 1)
 
     def getValue(self, obj):
         return self.distribution[obj]
